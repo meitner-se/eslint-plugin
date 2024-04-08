@@ -1,7 +1,11 @@
 {
-    "name": "eslint-plugin-meitner",
+    "name": "@meitner/eslint-plugin",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/meitner-se/eslint-plugin"
+    },
     "version": "1.0.0",
-    "private": true,
     "main": "dist/src/index.js",
     "sideEffects": false,
     "keywords": [
