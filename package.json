@@ -3,7 +3,7 @@
     "license": "MIT",
     "repository": {
         "type": "git",
-        "url": "https://github.com/meitner-se/eslint-plugin"
+        "url": "git+https://github.com/meitner-se/eslint-plugin.git"
     },
     "version": "1.0.0",
     "main": "dist/src/index.js",
