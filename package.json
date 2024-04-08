@@ -1,19 +1,28 @@
 {
-    "name": "@meitner/eslint-plugin",
+    "name": "eslint-plugin-meitner",
     "version": "1.0.0",
     "private": true,
-    "main": "src/index.ts",
+    "main": "dist/src/index.js",
     "sideEffects": false,
+    "keywords": [
+        "eslint",
+        "eslintplugin"
+    ],
     "scripts": {
-        "test": "vitest"
+        "test": "vitest",
+        "prepack": "tsc"
     },
     "devDependencies": {
+        "@types/eslint": "^8.56.7",
         "@typescript-eslint/parser": "7.5.0",
         "@typescript-eslint/rule-tester": "7.5.0",
         "@typescript-eslint/types": "7.5.0",
         "@typescript-eslint/utils": "7.5.0",
-        "eslint": "8.56.0",
         "typescript": "5.4.4",
-        "vitest": "1.4.0"
+        "vitest": "1.4.0",
+        "eslint": "8.56.0"
+    },
+    "peerDependencies": {
+        "eslint": "8.56.0"
     }
 }

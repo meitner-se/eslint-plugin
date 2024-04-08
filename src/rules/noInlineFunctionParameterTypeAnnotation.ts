@@ -15,28 +15,69 @@ function paramsHaveInlineTypeAnnotation(params: Parameter[]) {
     });
 }
 
+function getParametersWithInlineTypeAnnotations(params: Parameter[]) {
+    return params.filter((param) => {
+        if (!("typeAnnotation" in param)) {
+            return false;
+        }
+
+        return (
+            param.typeAnnotation?.typeAnnotation.type ===
+            AST_NODE_TYPES.TSTypeLiteral
+        );
+    });
+}
+
+function getLoc(params: Parameter[]) {
+    const firstParameter = params[0];
+    const lastParameter = params[params.length - 1];
+
+    if (!firstParameter || !lastParameter) {
+        return;
+    }
+
+    return {
+        start: firstParameter.loc.start,
+        end: lastParameter.loc.end,
+    };
+}
+
 export const noInlineFunctionParameterTypeAnnotation =
     ESLintUtils.RuleCreator.withoutDocs({
         create(context) {
             return {
                 ArrowFunctionExpression(node) {
-                    if (!paramsHaveInlineTypeAnnotation(node.params)) {
+                    const parameters = getParametersWithInlineTypeAnnotations(
+                        node.params
+                    );
+
+                    if (parameters.length === 0) {
                         return;
                     }
+
+                    const loc = getLoc(parameters);
 
                     context.report({
                         node,
                         messageId: "noInlineFunctionParameterTypeAnnotation",
+                        loc,
                     });
                 },
                 FunctionDeclaration(node) {
-                    if (!paramsHaveInlineTypeAnnotation(node.params)) {
+                    const parameters = getParametersWithInlineTypeAnnotations(
+                        node.params
+                    );
+
+                    if (parameters.length === 0) {
                         return;
                     }
+
+                    const loc = getLoc(parameters);
 
                     context.report({
                         node,
                         messageId: "noInlineFunctionParameterTypeAnnotation",
+                        loc,
                     });
                 },
             };

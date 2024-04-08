@@ -18,6 +18,8 @@ ruleTester.run(
         valid: [
             "const myFunction = (parameterA: MyType) => {}",
             "function myFunction(parameterA: MyType) {}",
+            "const myFunction = (parameterA: string) => {}",
+            "function myFunction(parameterA: string) {}",
         ],
         invalid: [
             {
