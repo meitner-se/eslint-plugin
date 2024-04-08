@@ -1,4 +1,4 @@
-# eslint-plugin-meitner
+# @meitner/eslint-plugin
 
 Custom ESLint rules used internally at Meitner
 
