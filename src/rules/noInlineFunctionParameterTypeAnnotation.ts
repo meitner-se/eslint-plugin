@@ -2,19 +2,6 @@ import { AST_NODE_TYPES } from "@typescript-eslint/types";
 import type { Parameter } from "@typescript-eslint/types/dist/generated/ast-spec";
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-function paramsHaveInlineTypeAnnotation(params: Parameter[]) {
-    return params.some((param) => {
-        if (!("typeAnnotation" in param)) {
-            return false;
-        }
-
-        return (
-            param.typeAnnotation?.typeAnnotation.type ===
-            AST_NODE_TYPES.TSTypeLiteral
-        );
-    });
-}
-
 function getParametersWithInlineTypeAnnotations(params: Parameter[]) {
     return params.filter((param) => {
         if (!("typeAnnotation" in param)) {
