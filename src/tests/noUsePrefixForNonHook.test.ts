@@ -28,6 +28,9 @@ ruleTester.run("noUsePrefixForNonHook", noUsePrefixForNonHook, {
         "function useCustom() {useEffect(() => {});}",
         "function myFunction() {}",
         "function userFunction() {}",
+        "const user = null;",
+        "const myVariable = null;",
+        "const data = useUserData();",
     ],
     invalid: [
         {
@@ -72,6 +75,30 @@ ruleTester.run("noUsePrefixForNonHook", noUsePrefixForNonHook, {
         },
         {
             code: "function useCustom() {const data = userFunction(); return data;}",
+            errors: [
+                {
+                    messageId: "noUsePrefixForNonHook",
+                },
+            ],
+        },
+        {
+            code: "const useCustom = null;",
+            errors: [
+                {
+                    messageId: "noUsePrefixForNonHook",
+                },
+            ],
+        },
+        {
+            code: "function myFunction() {}; const useCustom = myFunction;",
+            errors: [
+                {
+                    messageId: "noUsePrefixForNonHook",
+                },
+            ],
+        },
+        {
+            code: "const myVariable = null; const useCustom = myVariable;",
             errors: [
                 {
                     messageId: "noUsePrefixForNonHook",

@@ -134,6 +134,42 @@ export const noUsePrefixForNonHook = ESLintUtils.RuleCreator.withoutDocs({
                     messageId: "noUsePrefixForNonHook",
                 });
             },
+            VariableDeclaration(node) {
+                const declaration = node.declarations[0];
+
+                if (!declaration) {
+                    return;
+                }
+
+                const name =
+                    "name" in declaration.id ? declaration?.id.name : "";
+
+                if (!name || !hasUsePrefix(name)) {
+                    return;
+                }
+
+                // Check if the variable is assigned an arrow function
+                if (
+                    declaration.init &&
+                    declaration.init.type === "ArrowFunctionExpression"
+                ) {
+                    // We check arrow functions in the ArrowFunctionExpression visitor
+                    return;
+                }
+
+                if (
+                    declaration.init &&
+                    declaration.init.type === "Identifier" &&
+                    hasUsePrefix(declaration.init.name)
+                ) {
+                    return;
+                }
+
+                context.report({
+                    node,
+                    messageId: "noUsePrefixForNonHook",
+                });
+            },
         };
     },
     meta: {
