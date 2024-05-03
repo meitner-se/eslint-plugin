@@ -12,7 +12,11 @@ jobs:
               uses: actions/setup-node@v4
               with:
                   node-version: 20
-            - name: Install and lint
+            - name: Install
               uses: borales/actions-yarn@v5.0.0
               with:
-                  cmd: install && lint
+                  cmd: install
+            - name: Lint
+              uses: borales/actions-yarn@v5.0.0
+              with:
+                  cmd: lint
