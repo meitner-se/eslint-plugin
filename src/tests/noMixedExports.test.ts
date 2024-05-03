@@ -12,7 +12,11 @@ const ruleTester = new RuleTester({
 });
 
 ruleTester.run("noMixedExports", noMixedExports, {
-    valid: ["export const myExport = () => {}", "export default () => {}"],
+    valid: [
+        "export const myExport = () => {}",
+        "export default () => {}",
+        "export const myExport = () => {}; export const mySecondExport = () => {}; export const myThirdExport = () => {}",
+    ],
     invalid: [
         {
             code: "export const myExport = () => {}; export default () => {}",
