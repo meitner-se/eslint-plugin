@@ -1,6 +1,5 @@
 {
     "name": "@meitner/eslint-plugin",
-    "type": "module",
     "license": "MIT",
     "repository": {
         "type": "git",
