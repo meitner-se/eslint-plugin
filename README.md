@@ -54,3 +54,35 @@ export type Options = {
 
 export default myFunction(parameters: Options) {...}
 ```
+
+### no-use-prefix-for-non-hook
+
+Custom hooks are identified using a `use` prefix, naming normal functions, variables or others with a `use` prefix can cause confusion.
+
+This rule forbids functions and variables being prefixed with `use` if they do not contain other hooks.
+
+Examples of valid code
+
+```js
+const useCustom = () => {
+    const [state, setState] = useState("");
+
+    return { state, setState };
+};
+
+const useCustom = () => useState("");
+
+const useCustom = useState;
+```
+
+Examples of invalid code
+
+```js
+const useCustom = () => {
+    return "Hello world";
+};
+
+const useCustom = () => new Date();
+
+const useCustom = new Date();
+```
