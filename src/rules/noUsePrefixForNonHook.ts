@@ -83,16 +83,27 @@ function arrowFunctionHasImplicitReturnWithUsePrefix(
     );
 }
 
+function getArrowFunctionName(node: ArrowFunctionExpression) {
+    if (!("id" in node.parent)) {
+        return;
+    }
+
+    if (!node.parent.id) {
+        return;
+    }
+
+    if (!("name" in node.parent.id)) {
+        return;
+    }
+
+    return node.parent.id.name;
+}
+
 export const noUsePrefixForNonHook = ESLintUtils.RuleCreator.withoutDocs({
     create(context) {
         return {
             ArrowFunctionExpression(node) {
-                const name =
-                    "id" in node.parent &&
-                    node.parent.id &&
-                    "name" in node.parent.id
-                        ? node.parent.id?.name
-                        : "";
+                const name = getArrowFunctionName(node);
 
                 if (!name || !hasUsePrefix(name)) {
                     return;
