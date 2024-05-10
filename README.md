@@ -15,7 +15,7 @@ Writing type annotations inline for function parameters makes the code harder to
 
 Examples of valid code
 
-```js
+```ts
 const myFunction = (parameterA: MyType) => {};
 function myFunction(parameterA: MyType) {}
 const myFunction = (parameterA: string) => {};
@@ -24,7 +24,7 @@ function myFunction(parameterA: string) {}
 
 Examples of invalid code
 
-```js
+```ts
 const myFunction = (parameterA: { foo: string }) => {};
 function myFunction(parameterA: { foo: string }) {}
 ```
@@ -37,7 +37,7 @@ Mixing exports can make the code hard to navigate and unpredictable. This rule f
 
 Examples of valid code
 
-```js
+```ts
 // types.ts
 export type Options = {
     value: number
@@ -51,7 +51,7 @@ export default myFunction(parameters: Options) {...}
 
 Examples of invalid code
 
-```js
+```ts
 // index.ts
 export type Options = {
     value: number
@@ -68,7 +68,7 @@ This rule forbids functions and variables being prefixed with `use` if they do n
 
 Examples of valid code
 
-```js
+```ts
 const useCustom = () => {
     const [state, setState] = useState("");
 
@@ -82,7 +82,7 @@ const useCustom = useState;
 
 Examples of invalid code
 
-```js
+```ts
 const useCustom = () => {
     return "Hello world";
 };
@@ -102,12 +102,12 @@ This rule forbids using the React namespace.
 
 Examples of valid code
 
-```js
+```ts
 const [state, setState] = useState("");
 
 type Props = {
-    children: ReactNode,
-    style: CSSProperties,
+    children: ReactNode;
+    style: CSSProperties;
 };
 
 export default memo(MyComponent);
@@ -115,12 +115,12 @@ export default memo(MyComponent);
 
 Examples of invalid code
 
-```js
+```ts
 const [state, setState] = React.useState("");
 
 type Props = {
-    children: React.ReactNode,
-    style: React.CSSProperties,
+    children: React.ReactNode;
+    style: React.CSSProperties;
 };
 
 export default React.memo(MyComponent);
