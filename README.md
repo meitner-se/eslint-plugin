@@ -4,6 +4,11 @@ Custom ESLint rules used internally at Meitner
 
 ## Rules
 
+-   [no-inline-function-parameter-type-annotation](#no-inline-function-parameter-type-annotation)
+-   [no-mixed-exports](#no-mixed-exports)
+-   [no-use-prefix-for-non-hook](#no-use-prefix-for-non-hook)
+-   [no-react-namespace](#no-react-namespace)
+
 ### no-inline-function-parameter-type-annotation
 
 Writing type annotations inline for function parameters makes the code harder to read, and introduces inconsistency. This rule forces the developer to write a type or interface.
@@ -85,4 +90,38 @@ const useCustom = () => {
 const useCustom = () => new Date();
 
 const useCustom = new Date();
+```
+
+### no-react-namespace
+
+React functions and types can be either imported individually, or used as a member of the default exported React namespace, mixing these two strategies introduces inconsistency.
+
+It has no real effect on performance or function, but importing functions and types individually makes the code more consistent with modern Javascript packages which tend to not use default export due to tree shaking.
+
+This rule forbids using the React namespace.
+
+Examples of valid code
+
+```js
+const [state, setState] = useState("");
+
+type Props = {
+    children: ReactNode,
+    style: CSSProperties,
+};
+
+export default memo(MyComponent);
+```
+
+Examples of invalid code
+
+```js
+const [state, setState] = React.useState("");
+
+type Props = {
+    children: React.ReactNode,
+    style: React.CSSProperties,
+};
+
+export default React.memo(MyComponent);
 ```
