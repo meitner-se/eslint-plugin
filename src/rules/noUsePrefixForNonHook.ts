@@ -176,6 +176,14 @@ export const noUsePrefixForNonHook = ESLintUtils.RuleCreator.withoutDocs({
                     return;
                 }
 
+                // Check if the variable is assigned a function, we accept functions named as hooks or not, since it's quite common to create a hook with a factory function, such as `createStore` from `zustand`
+                if (
+                    declaration.init &&
+                    declaration.init.type === "CallExpression"
+                ) {
+                    return;
+                }
+
                 context.report({
                     node,
                     messageId: "noUsePrefixForNonHook",
