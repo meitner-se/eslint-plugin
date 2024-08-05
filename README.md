@@ -8,6 +8,7 @@ Custom ESLint rules used internally at Meitner
 -   [no-mixed-exports](#no-mixed-exports)
 -   [no-use-prefix-for-non-hook](#no-use-prefix-for-non-hook)
 -   [no-react-namespace](#no-react-namespace)
+-   [no-literal-jsx-style-prop-values](#no-literal-jsx-style-prop-values)
 
 ### no-inline-function-parameter-type-annotation
 
@@ -124,4 +125,32 @@ type Props = {
 };
 
 export default React.memo(MyComponent);
+```
+
+### no-literal-jsx-style-prop-values
+
+Styles should be written in real CSS and applied to elements with `className`, this means less JS code, faster build time, faster load time, better UX and better DX
+
+Often styles will need to be changed based on various conditions, most of the time we can just apply different classNames, but sometimes we need to set styles to dynamic JS values
+
+This rule forbids using literal values in the JSX style prop.
+
+Examples of valid code
+
+```ts
+<div style={{ color: myMagicColor }} />
+
+<div style={{ gap: myMagicGap * size }}>
+
+<div style={{ border: `1px solid ${getMagicColor()}` }} />
+```
+
+Examples of invalid code
+
+```ts
+<div style={{ color: "red" }} />
+
+<div style={{ color: isMagic ? "red" : "blue" }}>
+
+<div style={{ border: `1px solid ${isMagic ? "red" : "blue"}` }} />
 ```
