@@ -31,6 +31,7 @@ ruleTester.run("noUsePrefixForNonHook", noUsePrefixForNonHook, {
         "const user = null;",
         "const myVariable = null;",
         "const data = useUserData();",
+        "const useStore = createStore();",
     ],
     invalid: [
         {
