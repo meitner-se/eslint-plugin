@@ -1,3 +1,4 @@
+import { alwaysSpreadJSXPropsFirst } from "./alwaysSpreadJSXPropsFirst";
 import { noInlineFunctionParameterTypeAnnotation } from "./noInlineFunctionParameterTypeAnnotation";
 import { noLiteralJSXStylePropValues } from "./noLiteralJSXStylePropValues";
 import { noMixedExports } from "./noMixedExports";
@@ -11,6 +12,7 @@ const rules = {
     "no-use-prefix-for-non-hook": noUsePrefixForNonHook,
     "no-react-namespace": noReactNamespace,
     "no-literal-jsx-style-prop-values": noLiteralJSXStylePropValues,
+    "always-spread-props-first": alwaysSpreadJSXPropsFirst,
 };
 
 export { rules };

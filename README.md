@@ -154,3 +154,25 @@ Examples of invalid code
 
 <div style={{ border: `1px solid ${isMagic ? "red" : "blue"}` }} />
 ```
+
+### always-spread-jsx-props-first
+
+Spreading props can is a common pattern in React, but it can also lead to unintended behavior if not used carefully.
+
+This rule forces JSX spread props to always be the first prop in the list.
+
+Examples of valid code
+
+```ts
+<Component {...props} myProp={myValue} />
+
+<Component {...props} />
+
+<Component />
+```
+
+Examples of invalid code
+
+```ts
+<Component myProp={myValue} {...props} />
+```
