@@ -157,7 +157,9 @@ Examples of invalid code
 
 ### always-spread-jsx-props-first
 
-Spreading props can is a common pattern in React, but it can also lead to unintended behavior if not used carefully.
+Spreading props is a common pattern in React, but it can also lead to unintended behavior if not used carefully.
+
+By putting the spread props first, we can avoid unintended behavior, such as overriding props with the same name.
 
 This rule forces JSX spread props to always be the first prop in the list.
 
