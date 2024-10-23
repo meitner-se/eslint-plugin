@@ -1,4 +1,5 @@
 import { alwaysSpreadJSXPropsFirst } from "./alwaysSpreadJSXPropsFirst";
+import { noExportedTypesInTsxFiles } from "./noExportedTypesInTsxFiles";
 import { noInlineFunctionParameterTypeAnnotation } from "./noInlineFunctionParameterTypeAnnotation";
 import { noLiteralJSXStylePropValues } from "./noLiteralJSXStylePropValues";
 import { noMixedExports } from "./noMixedExports";
@@ -13,6 +14,7 @@ const rules = {
     "no-react-namespace": noReactNamespace,
     "no-literal-jsx-style-prop-values": noLiteralJSXStylePropValues,
     "always-spread-props-first": alwaysSpreadJSXPropsFirst,
+    "no-exported-types-in-tsx-files": noExportedTypesInTsxFiles,
 };
 
 export { rules };
