@@ -9,6 +9,7 @@ Custom ESLint rules used internally at Meitner
 -   [no-use-prefix-for-non-hook](#no-use-prefix-for-non-hook)
 -   [no-react-namespace](#no-react-namespace)
 -   [no-literal-jsx-style-prop-values](#no-literal-jsx-style-prop-values)
+-   [no-exported-types-outside-types-file](#no-exported-types-outside-types-file)
 
 ### no-inline-function-parameter-type-annotation
 
@@ -177,4 +178,36 @@ Examples of invalid code
 
 ```ts
 <Component myProp={myValue} {...props} />
+```
+
+### no-exported-types-in-tsx-files
+
+Exporting your types from your component's tsx file can lead to dependency loops and make your code harder to maintain.
+
+This rule forbids exporting types from tsx files.
+
+Examples of valid code
+
+```ts
+// MyComponent.tsx
+import { Props } from "./MyComponent.types";
+
+export default function MyComponent(props: Props) {
+    return <div>{props.children}</div>;
+}
+```
+
+Examples of invalid code
+
+```ts
+// MyComponent.tsx
+import { Props } from "./MyComponent.types";
+
+export default function MyComponent(props: Props) { // error
+    return <div>{props.children}</div>;
+}
+
+export type Props = {
+    children: ReactNode;
+};
 ```
