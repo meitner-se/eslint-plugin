@@ -14,6 +14,10 @@ const ruleTester = new RuleTester({
 ruleTester.run("alwaysSpreadJSXPropsFirst", alwaysSpreadJSXPropsFirst, {
     valid: [
         {
+            code: "<Component key={key} {...props} myProp={myValue} />",
+            parserOptions: { ecmaFeatures: { jsx: true } },
+        },
+        {
             code: "<Component {...props} myProp={myValue} />",
             parserOptions: { ecmaFeatures: { jsx: true } },
         },
