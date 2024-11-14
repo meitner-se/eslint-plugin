@@ -26,17 +26,27 @@ export const alwaysSpreadJSXPropsFirst = ESLintUtils.RuleCreator.withoutDocs({
                     return;
                 }
 
-                context.report({
-                    node,
-                    messageId: "alwaysSpreadJSXPropsFirst",
-                });
+                const beforeSpread = attributes.slice(0, spreadAttributeIndex);
+
+                const hasOnlyKeyBeforeSpread = beforeSpread.every(
+                    (attribute) =>
+                        attribute.type === "JSXAttribute" &&
+                        attribute.name.name === "key"
+                );
+
+                if (!hasOnlyKeyBeforeSpread) {
+                    context.report({
+                        node,
+                        messageId: "alwaysSpreadJSXPropsFirst",
+                    });
+                }
             },
         };
     },
     meta: {
         messages: {
             alwaysSpreadJSXPropsFirst:
-                "Always put JSX spread props first to avoid unintended behavior",
+                "Only 'key' prop is allowed before JSX spread props.",
         },
         type: "problem",
         schema: [],
