@@ -53,6 +53,10 @@ ruleTester.run("noLiteralJSXStylePropValues", noLiteralJSXStylePropValues, {
             code: "<div style={{ border: `1px solid ${isMagic ? getMagicColor() : getNormalColor()}` }} />",
             parserOptions: { ecmaFeatures: { jsx: true } },
         },
+        {
+            code: "<div style={{ ...getMagicStyles() }} />",
+            parserOptions: { ecmaFeatures: { jsx: true } },
+        },
     ],
     invalid: [
         {
