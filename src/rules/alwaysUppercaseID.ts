@@ -1,6 +1,6 @@
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-export const alwaysCapitalizeID = ESLintUtils.RuleCreator.withoutDocs({
+export const alwaysUppercaseID = ESLintUtils.RuleCreator.withoutDocs({
     create(context) {
         return {
             Identifier(node) {

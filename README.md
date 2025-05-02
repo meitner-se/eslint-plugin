@@ -215,9 +215,9 @@ export type Props = {
 };
 ```
 
-### always-capitalize-id
+### always-uppercase-id
 
-When working with identifiers, it's important to be consistent with abbreviations. This rule enforces using uppercase 'ID' or 'IDs' instead of lowercase 'id', 'ids', or capitalized 'Id', 'Ids' at the end of identifiers.
+When working with identifiers, it's important to be consistent with abbreviations. This rule enforces using uppercase 'ID' or 'IDs' instead of capitalized 'Id', 'Ids' at the end of identifiers.
 
 Examples of valid code
 

@@ -1,6 +1,6 @@
 import { RuleTester } from "@typescript-eslint/rule-tester";
 import * as vitest from "vitest";
-import { alwaysCapitalizeID } from "../rules/alwaysCapitalizeID";
+import { alwaysUppercaseID } from "../rules/alwaysUppercaseID";
 
 RuleTester.afterAll = vitest.afterAll;
 RuleTester.it = vitest.it;
@@ -11,7 +11,7 @@ const ruleTester = new RuleTester({
     parser: "@typescript-eslint/parser",
 });
 
-ruleTester.run("alwaysCapitalizeID", alwaysCapitalizeID, {
+ruleTester.run("alwaysUppercaseID", alwaysUppercaseID, {
     valid: [
         // Correctly capitalized ID
         "const userID = 123;",
