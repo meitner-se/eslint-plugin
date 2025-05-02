@@ -5,23 +5,15 @@ export const alwaysUppercaseID = ESLintUtils.RuleCreator.withoutDocs({
         return {
             Identifier(node) {
                 const name = node.name;
+                let found = "";
 
-                if (
-                    (name.endsWith("Id") || name.endsWith("Ids")) &&
-                    !(name.endsWith("ID") || name.endsWith("IDs"))
-                ) {
-                    let found = "";
+                if (name.includes("Ids") && !name.includes("IDs")) {
+                    found = "Ids";
+                } else if (name.includes("Id") && !name.includes("ID")) {
+                    found = "Id";
+                }
 
-                    if (name.endsWith("id")) {
-                        found = "id";
-                    } else if (name.endsWith("ids")) {
-                        found = "ids";
-                    } else if (name.endsWith("Id")) {
-                        found = "Id";
-                    } else if (name.endsWith("Ids")) {
-                        found = "Ids";
-                    }
-
+                if (found) {
                     context.report({
                         node,
                         messageId: "useUppercaseID",

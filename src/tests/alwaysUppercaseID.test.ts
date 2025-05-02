@@ -19,13 +19,9 @@ ruleTester.run("alwaysUppercaseID", alwaysUppercaseID, {
         "const userIDs = [1, 2, 3];",
         "class UserProfile { static userID = 123; }",
         "const obj = { userID: 123 };",
-
-        // Words that contain 'id' but not at the end
+        "const userIDToRemove = 123;",
         "const identify = () => {};",
         "const identity = x => x;",
-
-        // Other identifier patterns
-        "const userId123 = 123;", // 'Id' is not at a word boundary
     ],
     invalid: [
         {
@@ -66,6 +62,24 @@ ruleTester.run("alwaysUppercaseID", alwaysUppercaseID, {
         },
         {
             code: "const obj = { userId: 123 };",
+            errors: [
+                {
+                    messageId: "useUppercaseID",
+                    data: { found: "Id" },
+                },
+            ],
+        },
+        {
+            code: "const userIdToRemove = 123;",
+            errors: [
+                {
+                    messageId: "useUppercaseID",
+                    data: { found: "Id" },
+                },
+            ],
+        },
+        {
+            code: "const userId123 = 123;", // 'Id' is not at a word boundary
             errors: [
                 {
                     messageId: "useUppercaseID",
