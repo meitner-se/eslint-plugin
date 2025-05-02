@@ -1,3 +1,4 @@
+import { alwaysCapitalizeID } from "./alwaysCapitalizeID";
 import { alwaysSpreadJSXPropsFirst } from "./alwaysSpreadJSXPropsFirst";
 import { noExportedTypesInTsxFiles } from "./noExportedTypesInTsxFiles";
 import { noInlineFunctionParameterTypeAnnotation } from "./noInlineFunctionParameterTypeAnnotation";
@@ -7,6 +8,7 @@ import { noReactNamespace } from "./noReactNamespace";
 import { noUsePrefixForNonHook } from "./noUsePrefixForNonHook";
 
 const rules = {
+    "always-capitalize-id": alwaysCapitalizeID,
     "no-inline-function-parameter-type-annotation":
         noInlineFunctionParameterTypeAnnotation,
     "no-mixed-exports": noMixedExports,
