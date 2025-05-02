@@ -8,7 +8,7 @@ import { noReactNamespace } from "./noReactNamespace";
 import { noUsePrefixForNonHook } from "./noUsePrefixForNonHook";
 
 const rules = {
-    "always-capitalize-id": alwaysUppercaseID,
+    "always-uppercase-id": alwaysUppercaseID,
     "no-inline-function-parameter-type-annotation":
         noInlineFunctionParameterTypeAnnotation,
     "no-mixed-exports": noMixedExports,
