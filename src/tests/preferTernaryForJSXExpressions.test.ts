@@ -21,15 +21,23 @@ ruleTester.run(
                 parserOptions: { ecmaFeatures: { jsx: true } },
             },
             {
+                code: "myValue ? null : <Component />",
+                parserOptions: { ecmaFeatures: { jsx: true } },
+            },
+            {
                 code: "myValue ? <>My Component Yo</> : null",
                 parserOptions: { ecmaFeatures: { jsx: true } },
             },
             {
-                code: "myValue ? <>My Content Yo</> : null",
+                code: "myValue ? null : <>My Content Yo</>",
                 parserOptions: { ecmaFeatures: { jsx: true } },
             },
             {
                 code: "myValue ? renderMyComponent() : null",
+                parserOptions: { ecmaFeatures: { jsx: true } },
+            },
+            {
+                code: "myValue ? null : renderMyComponent()",
                 parserOptions: { ecmaFeatures: { jsx: true } },
             },
             {
