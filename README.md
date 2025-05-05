@@ -4,12 +4,49 @@ Custom ESLint rules used internally at Meitner
 
 ## Rules
 
+-   [prefer-ternary-for-jsx-expressions](#prefer-ternary-for-jsx-expressions)
 -   [no-inline-function-parameter-type-annotation](#no-inline-function-parameter-type-annotation)
 -   [no-mixed-exports](#no-mixed-exports)
 -   [no-use-prefix-for-non-hook](#no-use-prefix-for-non-hook)
 -   [no-react-namespace](#no-react-namespace)
 -   [no-literal-jsx-style-prop-values](#no-literal-jsx-style-prop-values)
 -   [no-exported-types-outside-types-file](#no-exported-types-outside-types-file)
+
+### prefer-ternary-for-jsx-expressions
+
+Using the logical AND operator (`&&`) for conditional rendering in JSX can lead to unintended rendering of falsy values like `0`. This rule encourages using ternary expressions instead, which explicitly handle the falsy case.
+
+Examples of valid code
+
+```tsx
+{
+    condition ? <Component /> : null;
+}
+
+{
+    isLoading ? <Spinner /> : null;
+}
+
+{
+    items.length ? renderItems() : null;
+}
+```
+
+Examples of invalid code
+
+```tsx
+{
+    condition && <Component />;
+}
+
+{
+    isLoading && <Spinner />;
+}
+
+{
+    items.length && renderItems();
+}
+```
 
 ### no-inline-function-parameter-type-annotation
 
