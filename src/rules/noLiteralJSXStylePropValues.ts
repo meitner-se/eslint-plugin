@@ -48,6 +48,10 @@ function isTemplateLiteralValid(literal: TemplateLiteral) {
 }
 
 function isExpressionPropertyValid(property: ObjectLiteralElement) {
+    if (property.type === "SpreadElement") {
+        return true;
+    }
+
     if (property.type !== "Property") {
         return false;
     }
