@@ -22,8 +22,28 @@ ruleTester.run("alwaysUppercaseID", alwaysUppercaseID, {
         "const userIDToRemove = 123;",
         "const identify = () => {};",
         "const identity = x => x;",
+        "const userIDsMappedByGroupIDs = 123;",
+        "const userIDMappedByGroupIDs = 123;",
     ],
     invalid: [
+        {
+            code: "const userIDsMappedBysGroupIds = 123;",
+            errors: [
+                {
+                    messageId: "useUppercaseID",
+                    data: { found: "Ids" },
+                },
+            ],
+        },
+        {
+            code: "const userIDsMappedByGroupId = 123;",
+            errors: [
+                {
+                    messageId: "useUppercaseID",
+                    data: { found: "Id" },
+                },
+            ],
+        },
         {
             code: "const userId = 123;",
             errors: [

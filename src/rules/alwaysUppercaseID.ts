@@ -5,19 +5,27 @@ export const alwaysUppercaseID = ESLintUtils.RuleCreator.withoutDocs({
         return {
             Identifier(node) {
                 const name = node.name;
-                let found = "";
 
-                if (name.includes("Ids") && !name.includes("IDs")) {
-                    found = "Ids";
-                } else if (name.includes("Id") && !name.includes("ID")) {
-                    found = "Id";
-                }
+                // Match "Ids" that are not part of "IDs" so we can catch multiple matches in a single string, eg. userIDsMappedByGroupIds
+                const idsPattern = /Ids(?!D)/g;
 
-                if (found) {
+                // Match "Id" that are not part of "ID" so we can catch multiple matches in a single string, eg. userIdMappedByGroupId
+                const idPattern = /Id(?!s?D)/g;
+
+                const idsMatches = name.match(idsPattern);
+                const idMatches = name.match(idPattern);
+
+                if (idsMatches) {
                     context.report({
                         node,
                         messageId: "useUppercaseID",
-                        data: { found },
+                        data: { found: "Ids" },
+                    });
+                } else if (idMatches) {
+                    context.report({
+                        node,
+                        messageId: "useUppercaseID",
+                        data: { found: "Id" },
                     });
                 }
             },
@@ -26,8 +34,7 @@ export const alwaysUppercaseID = ESLintUtils.RuleCreator.withoutDocs({
     meta: {
         type: "problem",
         docs: {
-            description:
-                "enforce 'ID' or 'IDs' instead of 'Id', or 'Ids' in suffixes",
+            description: "enforce 'ID' or 'IDs' instead of 'Id', or 'Ids'",
         },
         schema: [],
         messages: {
