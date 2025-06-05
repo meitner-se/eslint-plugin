@@ -11,6 +11,9 @@ Custom ESLint rules used internally at Meitner
 -   [no-react-namespace](#no-react-namespace)
 -   [no-literal-jsx-style-prop-values](#no-literal-jsx-style-prop-values)
 -   [no-exported-types-outside-types-file](#no-exported-types-outside-types-file)
+-   [always-spread-jsx-props-first](#always-spread-jsx-props-first)
+-   [no-exported-types-in-tsx-files](#no-exported-types-in-tsx-files)
+-   [always-capitalize-id](#always-capitalize-id)
 
 ### prefer-ternary-for-jsx-expressions
 
@@ -249,4 +252,36 @@ export default function MyComponent(props: Props) { // error
 export type Props = {
     children: ReactNode;
 };
+```
+
+### always-uppercase-id
+
+When working with identifiers, it's important to be consistent with abbreviations. This rule enforces using uppercase 'ID' or 'IDs' instead of capitalized 'Id', 'Ids' at the end of identifiers.
+
+Examples of valid code
+
+```ts
+const userID = 123;
+function getUserID() {
+    return 123;
+}
+const userIDs = [1, 2, 3];
+class UserProfile {
+    static userID = 123;
+}
+const obj = { userID: 123 };
+```
+
+Examples of invalid code
+
+```ts
+const userId = 123;
+function getUserId() {
+    return 123;
+}
+const userIds = [1, 2, 3];
+class UserProfile {
+    static userId = 123;
+}
+const obj = { userId: 123 };
 ```

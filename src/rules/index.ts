@@ -1,3 +1,4 @@
+import { alwaysUppercaseID } from "./alwaysUppercaseID";
 import { alwaysSpreadJSXPropsFirst } from "./alwaysSpreadJSXPropsFirst";
 import { noExportedTypesInTsxFiles } from "./noExportedTypesInTsxFiles";
 import { noInlineFunctionParameterTypeAnnotation } from "./noInlineFunctionParameterTypeAnnotation";
@@ -8,6 +9,7 @@ import { noUsePrefixForNonHook } from "./noUsePrefixForNonHook";
 import { preferTernaryForJSXExpressions } from "./preferTernaryForJSXExpressions";
 
 const rules = {
+    "always-uppercase-id": alwaysUppercaseID,
     "no-inline-function-parameter-type-annotation":
         noInlineFunctionParameterTypeAnnotation,
     "no-mixed-exports": noMixedExports,
