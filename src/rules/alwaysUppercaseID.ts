@@ -4,6 +4,15 @@ export const alwaysUppercaseID = ESLintUtils.RuleCreator.withoutDocs({
     create(context) {
         return {
             Identifier(node) {
+                // Skip identifiers in import statements
+                if (
+                    node.parent?.type === "ImportSpecifier" ||
+                    node.parent?.type === "ImportDefaultSpecifier" ||
+                    node.parent?.type === "ImportNamespaceSpecifier"
+                ) {
+                    return;
+                }
+
                 const name = node.name;
 
                 // Match "Ids" that are not part of "IDs" so we can catch multiple matches in a single string, eg. userIDsMappedByGroupIds

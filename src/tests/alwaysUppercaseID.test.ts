@@ -24,6 +24,14 @@ ruleTester.run("alwaysUppercaseID", alwaysUppercaseID, {
         "const identity = x => x;",
         "const userIDsMappedByGroupIDs = 123;",
         "const userIDMappedByGroupIDs = 123;",
+
+        // Import statements should be ignored
+        "import { myMagicalId } from 'module';",
+        "import { myMagicalIds } from 'module';",
+        "import myMagicalId from 'module';",
+        "import myMagicalIds from 'module';",
+        "import * as myMagicalId from 'module';",
+        "import * as myMagicalIds from 'module';",
     ],
     invalid: [
         {
