@@ -253,35 +253,3 @@ export type Props = {
     children: ReactNode;
 };
 ```
-
-### always-uppercase-id
-
-When working with identifiers, it's important to be consistent with abbreviations. This rule enforces using uppercase 'ID' or 'IDs' instead of capitalized 'Id', 'Ids' at the end of identifiers.
-
-Examples of valid code
-
-```ts
-const userID = 123;
-function getUserID() {
-    return 123;
-}
-const userIDs = [1, 2, 3];
-class UserProfile {
-    static userID = 123;
-}
-const obj = { userID: 123 };
-```
-
-Examples of invalid code
-
-```ts
-const userId = 123;
-function getUserId() {
-    return 123;
-}
-const userIds = [1, 2, 3];
-class UserProfile {
-    static userId = 123;
-}
-const obj = { userId: 123 };
-```

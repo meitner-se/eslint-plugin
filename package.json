@@ -5,7 +5,7 @@
         "type": "git",
         "url": "git+https://github.com/meitner-se/eslint-plugin.git"
     },
-    "version": "1.5.6",
+    "version": "1.7.0",
     "main": "dist/src/index.js",
     "sideEffects": false,
     "keywords": [
