@@ -4,6 +4,7 @@ import { noInlineFunctionParameterTypeAnnotation } from "./noInlineFunctionParam
 import { noLiteralJSXStylePropValues } from "./noLiteralJSXStylePropValues";
 import { noMixedExports } from "./noMixedExports";
 import { noReactNamespace } from "./noReactNamespace";
+import { noUselessFragmentConditional } from "./noUselessFragmentConditional";
 import { noUsePrefixForNonHook } from "./noUsePrefixForNonHook";
 import { preferTernaryForJSXExpressions } from "./preferTernaryForJSXExpressions";
 
@@ -17,6 +18,7 @@ const rules = {
     "always-spread-props-first": alwaysSpreadJSXPropsFirst,
     "no-exported-types-in-tsx-files": noExportedTypesInTsxFiles,
     "prefer-ternary-for-jsx-expressions": preferTernaryForJSXExpressions,
+    "no-useless-fragment-conditional": noUselessFragmentConditional,
 };
-
+    
 export { rules };
