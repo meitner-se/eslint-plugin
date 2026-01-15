@@ -5,7 +5,7 @@ import {
 } from "@typescript-eslint/types/dist/generated/ast-spec";
 import { ESLintUtils } from "@typescript-eslint/utils";
 
-const PREFIX_REGEX = /^use[A-Z]/;
+const PREFIX_REGEX = /^use($|[A-Z])/;
 
 function hasUsePrefix(name: string) {
     return name.match(PREFIX_REGEX) !== null;
