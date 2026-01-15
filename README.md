@@ -13,7 +13,6 @@ Custom ESLint rules used internally at Meitner
 -   [no-exported-types-outside-types-file](#no-exported-types-outside-types-file)
 -   [always-spread-jsx-props-first](#always-spread-jsx-props-first)
 -   [no-exported-types-in-tsx-files](#no-exported-types-in-tsx-files)
--   [always-capitalize-id](#always-capitalize-id)
 
 ### prefer-ternary-for-jsx-expressions
 
@@ -243,13 +242,11 @@ Examples of invalid code
 
 ```ts
 // MyComponent.tsx
-import { Props } from "./MyComponent.types";
+export type Props = {
+    children: ReactNode;
+};
 
 export default function MyComponent(props: Props) { // error
     return <div>{props.children}</div>;
 }
-
-export type Props = {
-    children: ReactNode;
-};
 ```

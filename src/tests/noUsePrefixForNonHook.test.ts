@@ -32,6 +32,7 @@ ruleTester.run("noUsePrefixForNonHook", noUsePrefixForNonHook, {
         "const myVariable = null;",
         "const data = useUserData();",
         "const useStore = createStore();",
+        "const useMagic = () => {return use(MagicContext)}",
     ],
     invalid: [
         {
