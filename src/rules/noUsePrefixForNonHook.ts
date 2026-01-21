@@ -1,9 +1,4 @@
-import {
-    ArrowFunctionExpression,
-    FunctionDeclaration,
-    LeftHandSideExpression,
-} from "@typescript-eslint/types/dist/generated/ast-spec";
-import { ESLintUtils } from "@typescript-eslint/utils";
+import { ESLintUtils, TSESTree } from "@typescript-eslint/utils";
 
 const PREFIX_REGEX = /^use($|[A-Z])/;
 
@@ -11,7 +6,7 @@ function hasUsePrefix(name: string) {
     return name.match(PREFIX_REGEX) !== null;
 }
 
-function calleeHasUsePrefix(callee: LeftHandSideExpression) {
+function calleeHasUsePrefix(callee: TSESTree.LeftHandSideExpression) {
     if (callee.type === "Identifier") {
         return hasUsePrefix(callee.name);
     }
@@ -25,8 +20,54 @@ function calleeHasUsePrefix(callee: LeftHandSideExpression) {
     return false;
 }
 
+function expressionContainsHookCall(
+    expression: TSESTree.Expression | TSESTree.PrivateIdentifier
+): boolean {
+    if (!expression) {
+        return false;
+    }
+
+    if (expression.type === "CallExpression") {
+        return (
+            calleeHasUsePrefix(expression.callee) ||
+            (expression.callee.type === "Identifier" &&
+                expression.callee.name === "use")
+        );
+    }
+
+    if (expression.type === "BinaryExpression") {
+        return (
+            expressionContainsHookCall(expression.left) ||
+            expressionContainsHookCall(expression.right)
+        );
+    }
+
+    if (expression.type === "ConditionalExpression") {
+        return (
+            expressionContainsHookCall(expression.test) ||
+            expressionContainsHookCall(expression.consequent) ||
+            expressionContainsHookCall(expression.alternate)
+        );
+    }
+
+    if (expression.type === "LogicalExpression") {
+        return (
+            expressionContainsHookCall(expression.left) ||
+            expressionContainsHookCall(expression.right)
+        );
+    }
+
+    if (expression.type === "SequenceExpression") {
+        return expression.expressions.some((expr) =>
+            expressionContainsHookCall(expr)
+        );
+    }
+
+    return false;
+}
+
 function hasVariableDeclarationWithUsePrefix(
-    node: ArrowFunctionExpression | FunctionDeclaration
+    node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionDeclaration
 ) {
     return (
         node.body.type === "BlockStatement" &&
@@ -36,15 +77,14 @@ function hasVariableDeclarationWithUsePrefix(
                 statement.declarations.some(
                     (declaration) =>
                         declaration.init &&
-                        declaration.init.type === "CallExpression" &&
-                        calleeHasUsePrefix(declaration.init.callee)
+                        expressionContainsHookCall(declaration.init)
                 )
         )
     );
 }
 
 function hasReturnStatementWithUsePrefix(
-    node: ArrowFunctionExpression | FunctionDeclaration
+    node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionDeclaration
 ) {
     return (
         node.body.type === "BlockStatement" &&
@@ -52,14 +92,13 @@ function hasReturnStatementWithUsePrefix(
             (statement) =>
                 statement.type === "ReturnStatement" &&
                 statement.argument &&
-                statement.argument.type === "CallExpression" &&
-                calleeHasUsePrefix(statement.argument.callee)
+                expressionContainsHookCall(statement.argument)
         )
     );
 }
 
 function hasFunctionInvokationWithUsePrefix(
-    node: ArrowFunctionExpression | FunctionDeclaration
+    node: TSESTree.ArrowFunctionExpression | TSESTree.FunctionDeclaration
 ) {
     return (
         node.body.type === "BlockStatement" &&
@@ -67,23 +106,23 @@ function hasFunctionInvokationWithUsePrefix(
             (statement) =>
                 statement.type === "ExpressionStatement" &&
                 statement.expression.type === "CallExpression" &&
-                calleeHasUsePrefix(statement.expression.callee)
+                (calleeHasUsePrefix(statement.expression.callee) ||
+                    (statement.expression.callee.type === "Identifier" &&
+                        statement.expression.callee.name === "use"))
         )
     );
 }
 
 function arrowFunctionHasImplicitReturnWithUsePrefix(
-    node: ArrowFunctionExpression
+    node: TSESTree.ArrowFunctionExpression
 ) {
-    return (
-        node.body.type !== "BlockStatement" &&
-        node.body.type === "CallExpression" &&
-        node.body.callee.type === "Identifier" &&
-        hasUsePrefix(node.body.callee.name)
-    );
+    if (node.body.type === "BlockStatement") {
+        return false;
+    }
+    return expressionContainsHookCall(node.body);
 }
 
-function getArrowFunctionName(node: ArrowFunctionExpression) {
+function getArrowFunctionName(node: TSESTree.ArrowFunctionExpression) {
     if (!("id" in node.parent)) {
         return;
     }
@@ -172,6 +211,18 @@ export const noUsePrefixForNonHook = ESLintUtils.RuleCreator.withoutDocs({
                     declaration.init &&
                     declaration.init.type === "Identifier" &&
                     hasUsePrefix(declaration.init.name)
+                ) {
+                    return;
+                }
+
+                // Check if the variable is assigned a conditional expression with hooks on both branches
+                if (
+                    declaration.init &&
+                    declaration.init.type === "ConditionalExpression" &&
+                    declaration.init.consequent.type === "Identifier" &&
+                    declaration.init.alternate.type === "Identifier" &&
+                    hasUsePrefix(declaration.init.consequent.name) &&
+                    hasUsePrefix(declaration.init.alternate.name)
                 ) {
                     return;
                 }
