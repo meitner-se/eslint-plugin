@@ -32,7 +32,10 @@ ruleTester.run("noUsePrefixForNonHook", noUsePrefixForNonHook, {
         "const myVariable = null;",
         "const data = useUserData();",
         "const useStore = createStore();",
-        "const useMagic = () => {return use(MagicContext)}",
+        "const useMagic = () => {return use(MagicContext);}",
+        // This is a hook from usehooks-ts https://usehooks-ts.com/react-hook/use-isomorphic-layout-effect
+        'const useIsomorphicLayoutEffect = typeof window !== "undefined" ? useLayoutEffect : useEffect;',
+        "const useCount = () => {return use(CountContext) ?? 0;}",
     ],
     invalid: [
         {
