@@ -15,6 +15,7 @@
     "scripts": {
         "test": "vitest",
         "lint": "eslint . --ext .ts --max-warnings 0",
+        "typecheck": "tsc --noEmit",
         "prepack": "tsc",
         "changeset": "changeset",
         "release": "changeset publish"
