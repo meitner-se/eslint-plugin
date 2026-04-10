@@ -29,7 +29,10 @@ export const cssModuleImportName = ESLintUtils.RuleCreator.withoutDocs<
 
                 const specifier = node.specifiers[0];
 
-                if (specifier.type !== "ImportDefaultSpecifier") {
+                if (
+                    !specifier ||
+                    specifier.type !== "ImportDefaultSpecifier"
+                ) {
                     return;
                 }
 

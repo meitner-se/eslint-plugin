@@ -6,7 +6,7 @@ import { rules } from "./rules";
 type RuleKey = keyof typeof rules;
 
 interface Plugin extends Omit<ESLint.Plugin, "rules"> {
-    rules: Record<RuleKey, RuleModule<string>>;
+    rules: Record<RuleKey, RuleModule<string, readonly unknown[]>>;
 }
 
 const plugin: Plugin = {
