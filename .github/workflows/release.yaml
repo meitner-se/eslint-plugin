@@ -22,11 +22,8 @@ jobs:
             - name: Setup Node.js
               uses: actions/setup-node@v4
               with:
-                  node-version: 22.x
+                  node-version: 24.x
                   registry-url: "https://registry.npmjs.org"
-
-            - name: Install npm >= 11.5.1 (needed by OIDC)
-              run: npm install -g npm@^11.5.1
 
             - name: Install dependencies
               run: yarn install --frozen-lockfile
