@@ -13,6 +13,7 @@ Custom ESLint rules used internally at Meitner
 -   [no-exported-types-outside-types-file](#no-exported-types-outside-types-file)
 -   [always-spread-jsx-props-first](#always-spread-jsx-props-first)
 -   [no-exported-types-in-tsx-files](#no-exported-types-in-tsx-files)
+-   [css-module-import-name](#css-module-import-name)
 
 ### prefer-ternary-for-jsx-expressions
 
@@ -249,4 +250,36 @@ export type Props = {
 export default function MyComponent(props: Props) { // error
     return <div>{props.children}</div>;
 }
+```
+
+### css-module-import-name
+
+CSS module imports should use a consistent name across the codebase. By default, this rule enforces the name `classes`, but it can be configured to any name.
+
+This rule is auto-fixable.
+
+Configuration
+
+```json
+// Use default name "classes"
+"@meitner/css-module-import-name": "error"
+
+// Use custom name
+"@meitner/css-module-import-name": ["error", { "name": "styles" }]
+```
+
+Examples of valid code
+
+```ts
+import classes from "./styles.module.css";
+import classes from "./styles.module.scss";
+import classes from "./styles.module.less";
+```
+
+Examples of invalid code
+
+```ts
+import styles from "./styles.module.css";
+import css from "./styles.module.scss";
+import s from "./styles.module.less";
 ```
