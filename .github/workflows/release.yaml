@@ -25,6 +25,9 @@ jobs:
                   node-version: 22.x
                   registry-url: "https://registry.npmjs.org"
 
+            - name: Install npm >= 11.5.1 (needed by OIDC)
+              run: npm install -g npm@^11.5.1
+
             - name: Install dependencies
               run: yarn install --frozen-lockfile
 
