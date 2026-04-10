@@ -1,4 +1,5 @@
 import { alwaysSpreadJSXPropsFirst } from "./alwaysSpreadJSXPropsFirst";
+import { cssModuleImportName } from "./cssModuleImportName";
 import { noExportedTypesInTsxFiles } from "./noExportedTypesInTsxFiles";
 import { noInlineFunctionParameterTypeAnnotation } from "./noInlineFunctionParameterTypeAnnotation";
 import { noLiteralJSXStylePropValues } from "./noLiteralJSXStylePropValues";
@@ -8,6 +9,7 @@ import { noUsePrefixForNonHook } from "./noUsePrefixForNonHook";
 import { preferTernaryForJSXExpressions } from "./preferTernaryForJSXExpressions";
 
 const rules = {
+    "css-module-import-name": cssModuleImportName,
     "no-inline-function-parameter-type-annotation":
         noInlineFunctionParameterTypeAnnotation,
     "no-mixed-exports": noMixedExports,
