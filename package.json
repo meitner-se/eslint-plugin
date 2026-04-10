@@ -16,7 +16,8 @@
         "test": "vitest",
         "lint": "eslint . --ext .ts --max-warnings 0",
         "prepack": "tsc",
-        "changeset": "changeset"
+        "changeset": "changeset",
+        "release": "changeset publish"
     },
     "devDependencies": {
         "@changesets/changelog-github": "^0.6.0",

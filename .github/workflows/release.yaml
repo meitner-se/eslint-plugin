@@ -32,6 +32,7 @@ jobs:
               id: changesets
               uses: changesets/action@v1
               with:
+                  publish: "yarn release"
                   title: "Version Packages"
                   commit: "Version Packages"
               env:
