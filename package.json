@@ -15,9 +15,12 @@
     "scripts": {
         "test": "vitest",
         "lint": "eslint . --ext .ts --max-warnings 0",
-        "prepack": "tsc"
+        "prepack": "tsc",
+        "changeset": "changeset"
     },
     "devDependencies": {
+        "@changesets/changelog-github": "^0.6.0",
+        "@changesets/cli": "^2.30.0",
         "@types/eslint": "^8.56.7",
         "@types/node": "^22.7.9",
         "@typescript-eslint/eslint-plugin": "^7.8.0",
