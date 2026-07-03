@@ -15,6 +15,7 @@ Custom ESLint rules used internally at Meitner
 -   [no-exported-types-in-tsx-files](#no-exported-types-in-tsx-files)
 -   [css-module-import-name](#css-module-import-name)
 -   [require-button-type](#require-button-type)
+-   [require-reduce-initial-value](#require-reduce-initial-value)
 
 ### prefer-ternary-for-jsx-expressions
 
@@ -309,4 +310,26 @@ Examples of invalid code
 <button onClick={handleClick}>Click</button>
 
 <button {...props}>Click</button>
+```
+
+### require-reduce-initial-value
+
+Calling `.reduce()` without an initial value throws a `TypeError` on empty arrays, and lets the accumulator type be inferred from the first element, which is rarely what you want.
+
+This rule requires an `initialValue` argument to be passed to `.reduce()`, mirroring the `CallExpression[arguments.length=1] > MemberExpression.callee > Identifier.property[name='reduce']` selector so it can be used with linters that do not support `no-restricted-syntax` (e.g. oxlint).
+
+Examples of valid code
+
+```ts
+arr.reduce((acc, cur) => acc + cur, 0);
+
+arr.reduce(reducer, initialValue);
+```
+
+Examples of invalid code
+
+```ts
+arr.reduce((acc, cur) => acc + cur);
+
+arr.reduce(reducer);
 ```
