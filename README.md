@@ -14,6 +14,7 @@ Custom ESLint rules used internally at Meitner
 -   [always-spread-jsx-props-first](#always-spread-jsx-props-first)
 -   [no-exported-types-in-tsx-files](#no-exported-types-in-tsx-files)
 -   [css-module-import-name](#css-module-import-name)
+-   [require-button-type](#require-button-type)
 
 ### prefer-ternary-for-jsx-expressions
 
@@ -282,4 +283,30 @@ Examples of invalid code
 import styles from "./styles.module.css";
 import css from "./styles.module.scss";
 import s from "./styles.module.less";
+```
+
+### require-button-type
+
+When the `type` attribute is omitted, native `<button>` elements default to `type="submit"`. Inside a form this causes the button to submit the form, which is a common source of unintended behavior.
+
+This rule forces native `<button>` elements to explicitly specify a `type`. It only applies to the lowercase `button` element, so React components such as `<Button />` are ignored. A spread attribute (`{...props}`) does not satisfy the rule, since the presence of a `type` cannot be verified statically.
+
+Examples of valid code
+
+```tsx
+<button type="button">Click</button>
+
+<button type="submit">Submit</button>
+
+<button type={buttonType}>Click</button>
+```
+
+Examples of invalid code
+
+```tsx
+<button>Click</button>
+
+<button onClick={handleClick}>Click</button>
+
+<button {...props}>Click</button>
 ```

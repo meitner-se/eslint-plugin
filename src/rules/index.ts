@@ -7,6 +7,7 @@ import { noMixedExports } from "./noMixedExports";
 import { noReactNamespace } from "./noReactNamespace";
 import { noUsePrefixForNonHook } from "./noUsePrefixForNonHook";
 import { preferTernaryForJSXExpressions } from "./preferTernaryForJSXExpressions";
+import { requireButtonType } from "./requireButtonType";
 
 const rules = {
     "css-module-import-name": cssModuleImportName,
@@ -19,6 +20,7 @@ const rules = {
     "always-spread-props-first": alwaysSpreadJSXPropsFirst,
     "no-exported-types-in-tsx-files": noExportedTypesInTsxFiles,
     "prefer-ternary-for-jsx-expressions": preferTernaryForJSXExpressions,
+    "require-button-type": requireButtonType,
 };
 
 export { rules };
