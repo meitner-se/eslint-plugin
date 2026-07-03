@@ -8,6 +8,7 @@ import { noReactNamespace } from "./noReactNamespace";
 import { noUsePrefixForNonHook } from "./noUsePrefixForNonHook";
 import { preferTernaryForJSXExpressions } from "./preferTernaryForJSXExpressions";
 import { requireButtonType } from "./requireButtonType";
+import { requireReduceInitialValue } from "./requireReduceInitialValue";
 
 const rules = {
     "css-module-import-name": cssModuleImportName,
@@ -21,6 +22,7 @@ const rules = {
     "no-exported-types-in-tsx-files": noExportedTypesInTsxFiles,
     "prefer-ternary-for-jsx-expressions": preferTernaryForJSXExpressions,
     "require-button-type": requireButtonType,
+    "require-reduce-initial-value": requireReduceInitialValue,
 };
 
 export { rules };
