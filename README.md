@@ -16,6 +16,8 @@ Custom ESLint rules used internally at Meitner
 -   [css-module-import-name](#css-module-import-name)
 -   [require-button-type](#require-button-type)
 -   [require-reduce-initial-value](#require-reduce-initial-value)
+-   [no-hook-result-member-access](#no-hook-result-member-access)
+-   [no-hook-result-as-argument](#no-hook-result-as-argument)
 
 ### prefer-ternary-for-jsx-expressions
 
@@ -332,4 +334,50 @@ Examples of invalid code
 arr.reduce((acc, cur) => acc + cur);
 
 arr.reduceRight(reducer);
+```
+
+### no-hook-result-member-access
+
+Reading a member off a hook call directly (`useLocation().pathname`) hides the hook call inside a larger expression and throws away the rest of its result. When it happens more than once it also calls the hook repeatedly for a single value each time.
+
+This rule requires the result of a hook (a function whose name matches `use[A-Z]`) to be assigned to a variable or destructured before its members are accessed.
+
+Examples of valid code
+
+```ts
+const { pathname } = useLocation();
+
+const location = useLocation();
+const pathname = location.pathname;
+```
+
+Examples of invalid code
+
+```ts
+const pathname = useLocation().pathname;
+
+const searchParams = new URLSearchParams(useLocation().search);
+
+const t = useTranslation().t;
+```
+
+### no-hook-result-as-argument
+
+Passing a hook call straight into another call or constructor (`new URLSearchParams(useLocationSearch())`) buries the hook inside an argument list, where it is easy to miss that a hook is being called at all.
+
+This rule requires the result of a hook (a function whose name matches `use[A-Z]`) to be assigned to a variable before it is passed as an argument. Member access on a hook result is handled by [no-hook-result-member-access](#no-hook-result-member-access) instead.
+
+Examples of valid code
+
+```ts
+const search = useLocationSearch();
+const searchParams = new URLSearchParams(search);
+```
+
+Examples of invalid code
+
+```ts
+const searchParams = new URLSearchParams(useLocationSearch());
+
+doSomething(useSelector(selector));
 ```
