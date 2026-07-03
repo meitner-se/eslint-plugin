@@ -1,5 +1,11 @@
 # @meitner/eslint-plugin
 
+## 1.11.0
+
+### Minor Changes
+
+- [#30](https://github.com/meitner-se/eslint-plugin/pull/30) [`35e71e2`](https://github.com/meitner-se/eslint-plugin/commit/35e71e29480d6573ca13fc26d992580a9af38618) Thanks [@MattisAbrahamsson](https://github.com/MattisAbrahamsson)! - Add `no-hook-result-member-access` and `no-hook-result-as-argument` rules, which require a hook's result to be assigned to a variable (or destructured) instead of being accessed or passed inline, e.g. `useHook().property` or `doSomething(useHook())`.
+
 ## 1.10.0
 
 ### Minor Changes
