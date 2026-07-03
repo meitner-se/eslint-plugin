@@ -6,6 +6,7 @@
         "url": "git+https://github.com/meitner-se/eslint-plugin.git"
     },
     "version": "1.9.0",
+    "packageManager": "pnpm@11.1.2",
     "main": "dist/src/index.js",
     "sideEffects": false,
     "keywords": [
