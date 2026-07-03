@@ -316,7 +316,7 @@ Examples of invalid code
 
 Calling `.reduce()` or `.reduceRight()` without an initial value throws a `TypeError` on empty arrays, and lets the accumulator type be inferred from the first element, which is rarely what you want.
 
-This rule requires an `initialValue` argument to be passed to `.reduce()` and `.reduceRight()`. It is a JS-plugin replacement for a `no-restricted-syntax` selector, usable with linters that do not support `no-restricted-syntax` (e.g. oxlint).
+This rule requires an `initialValue` argument to be passed to `.reduce()` and `.reduceRight()`.
 
 Examples of valid code
 
