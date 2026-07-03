@@ -16,12 +16,11 @@ ruleTester.run("requireReduceInitialValue", requireReduceInitialValue, {
         "arr.reduce((acc, cur) => acc + cur, 0);",
         "arr.reduce(reducer, initialValue);",
         "arr.reduce(reducer, {});",
+        "arr.reduceRight(reducer, initialValue);",
         // A different method entirely
         "arr.map(fn);",
         // A bare function call, not a member call
         "reduce(fn);",
-        // reduceRight is not covered by the selector
-        "arr.reduceRight(fn);",
         // Computed access is intentionally not matched (mirrors the original
         // selector, which only targets `Identifier.property`)
         'arr["reduce"](fn);',
@@ -29,11 +28,25 @@ ruleTester.run("requireReduceInitialValue", requireReduceInitialValue, {
     invalid: [
         {
             code: "arr.reduce((acc, cur) => acc + cur);",
-            errors: [{ messageId: "requireReduceInitialValue" }],
+            errors: [
+                {
+                    messageId: "requireReduceInitialValue",
+                    data: { method: "reduce" },
+                },
+            ],
         },
         {
             code: "arr.reduce(reducer);",
             errors: [{ messageId: "requireReduceInitialValue" }],
+        },
+        {
+            code: "arr.reduceRight(reducer);",
+            errors: [
+                {
+                    messageId: "requireReduceInitialValue",
+                    data: { method: "reduceRight" },
+                },
+            ],
         },
         {
             code: "arr.filter(Boolean).reduce(reducer);",

@@ -314,16 +314,16 @@ Examples of invalid code
 
 ### require-reduce-initial-value
 
-Calling `.reduce()` without an initial value throws a `TypeError` on empty arrays, and lets the accumulator type be inferred from the first element, which is rarely what you want.
+Calling `.reduce()` or `.reduceRight()` without an initial value throws a `TypeError` on empty arrays, and lets the accumulator type be inferred from the first element, which is rarely what you want.
 
-This rule requires an `initialValue` argument to be passed to `.reduce()`, mirroring the `CallExpression[arguments.length=1] > MemberExpression.callee > Identifier.property[name='reduce']` selector so it can be used with linters that do not support `no-restricted-syntax` (e.g. oxlint).
+This rule requires an `initialValue` argument to be passed to `.reduce()` and `.reduceRight()`. It is a JS-plugin replacement for a `no-restricted-syntax` selector, usable with linters that do not support `no-restricted-syntax` (e.g. oxlint).
 
 Examples of valid code
 
 ```ts
 arr.reduce((acc, cur) => acc + cur, 0);
 
-arr.reduce(reducer, initialValue);
+arr.reduceRight(reducer, initialValue);
 ```
 
 Examples of invalid code
@@ -331,5 +331,5 @@ Examples of invalid code
 ```ts
 arr.reduce((acc, cur) => acc + cur);
 
-arr.reduce(reducer);
+arr.reduceRight(reducer);
 ```
