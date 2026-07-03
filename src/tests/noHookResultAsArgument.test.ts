@@ -14,58 +14,58 @@ const ruleTester = new RuleTester({
 ruleTester.run("noHookResultAsArgument", noHookResultAsArgument, {
     valid: [
         // Assigned to a variable first, then passed
-        "const search = useLocationSearch(); new URLSearchParams(search);",
+        "const value = useHook(); doSomething(value);",
         // Assigned, not passed inline
-        "const params = useSearchParams();",
-        // Bare statement, result discarded
-        "useEffect(() => {}, []);",
+        "const value = useHook();",
+        // Bare call, result discarded
+        "useHook();",
         // The hook's own arguments are not hook calls
-        "const value = useMemo(() => compute(), []);",
+        "const value = useHook(callback, deps);",
         // Passing the hook reference (not calling it) is fine
-        "wrapHook(useLocation);",
+        "wrap(useHook);",
         // Argument is not a hook call
-        "new URLSearchParams(getSearch());",
+        "new SomeClass(getValue());",
         "doSomething(computeValue());",
         // Immediately invoking the hook result is a call position, not an
         // argument position — intentionally out of scope for this rule
-        "useEventHandler()();",
+        "useHook()();",
     ],
     invalid: [
         {
-            code: "const search = new URLSearchParams(useLocationSearch());",
+            code: "const instance = new SomeClass(useHook());",
             errors: [
                 {
                     messageId: "noHookResultAsArgument",
-                    data: { hook: "useLocationSearch" },
+                    data: { hook: "useHook" },
                 },
             ],
         },
         {
-            code: "foo(useX());",
+            code: "doSomething(useHook());",
             errors: [
                 {
                     messageId: "noHookResultAsArgument",
-                    data: { hook: "useX" },
+                    data: { hook: "useHook" },
                 },
             ],
         },
         // The hook call itself is the argument, even when it takes its own args
         {
-            code: "doSomething(useSelector(selector));",
+            code: "doSomething(useOther(config));",
             errors: [
                 {
                     messageId: "noHookResultAsArgument",
-                    data: { hook: "useSelector" },
+                    data: { hook: "useOther" },
                 },
             ],
         },
         // A hook argument alongside other arguments
         {
-            code: "new Foo(useBar(), other);",
+            code: "new SomeClass(useHook(), other);",
             errors: [
                 {
                     messageId: "noHookResultAsArgument",
-                    data: { hook: "useBar" },
+                    data: { hook: "useHook" },
                 },
             ],
         },

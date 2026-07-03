@@ -14,62 +14,66 @@ const ruleTester = new RuleTester({
 ruleTester.run("noHookResultMemberAccess", noHookResultMemberAccess, {
     valid: [
         // Destructured — the preferred form
-        "const { pathname } = useLocation();",
+        "const { property } = useHook();",
         // Assigned to a variable first, then accessed
-        "const location = useLocation(); const p = location.pathname;",
+        "const result = useHook(); const property = result.property;",
         // Assigned without any member access
-        "const value = useMemo(() => compute(), []);",
-        "const ref = useRef(0);",
-        // Effect hook called for its side effect, no member access
-        "useEffect(() => {}, []);",
+        "const value = useHook(config);",
+        // Bare call, no member access
+        "useHook();",
         // Not a hook name
-        "notAHook().pathname;",
-        "getState().value;",
+        "notAHook().property;",
+        "getValue().property;",
         // A namespaced call is not a bare hook identifier
-        "foo.useBar().baz;",
+        "obj.useHook().property;",
     ],
     invalid: [
         {
-            code: "const pathname = useLocation().pathname;",
+            code: "const property = useHook().property;",
             errors: [
                 {
                     messageId: "noHookResultMemberAccess",
-                    data: { hook: "useLocation" },
+                    data: { hook: "useHook" },
                 },
             ],
         },
         {
-            code: "useLocation().pathname;",
+            code: "useHook().property;",
             errors: [{ messageId: "noHookResultMemberAccess" }],
         },
         // Member access on a hook result, even nested inside another expression
         {
-            code: "const p = new URLSearchParams(useLocation().search);",
+            code: "const instance = new SomeClass(useHook().property);",
             errors: [
                 {
                     messageId: "noHookResultMemberAccess",
-                    data: { hook: "useLocation" },
+                    data: { hook: "useHook" },
                 },
             ],
         },
         {
-            code: "const t = useTranslation().t;",
-            errors: [{ messageId: "noHookResultMemberAccess" }],
+            code: "const value = useOther().value;",
+            errors: [
+                {
+                    messageId: "noHookResultMemberAccess",
+                    data: { hook: "useOther" },
+                },
+            ],
         },
         // Optional chaining still accesses a member on the call
         {
-            code: "const x = useLocation()?.pathname;",
+            code: "const x = useHook()?.property;",
             errors: [{ messageId: "noHookResultMemberAccess" }],
         },
         // Computed access
         {
-            code: 'const x = useLocation()["pathname"];',
+            code: 'const x = useHook()["property"];',
             errors: [{ messageId: "noHookResultMemberAccess" }],
         },
         // Calling a method on the hook result is member access, so this rule
         // owns it (not no-hook-result-as-argument)
         {
-            code: "useStore().subscribe();",
+            code: "useHook().doSomething();",
             errors: [{ messageId: "noHookResultMemberAccess" }],
         },
     ],
