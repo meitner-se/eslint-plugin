@@ -7,6 +7,7 @@ import { noInlineFunctionParameterTypeAnnotation } from "./noInlineFunctionParam
 import { noLiteralJSXStylePropValues } from "./noLiteralJSXStylePropValues";
 import { noMixedExports } from "./noMixedExports";
 import { noReactNamespace } from "./noReactNamespace";
+import { noSelfPackageImport } from "./noSelfPackageImport";
 import { noUsePrefixForNonHook } from "./noUsePrefixForNonHook";
 import { preferTernaryForJSXExpressions } from "./preferTernaryForJSXExpressions";
 import { requireButtonType } from "./requireButtonType";
@@ -19,6 +20,7 @@ const rules = {
     "no-mixed-exports": noMixedExports,
     "no-use-prefix-for-non-hook": noUsePrefixForNonHook,
     "no-react-namespace": noReactNamespace,
+    "no-self-package-import": noSelfPackageImport,
     "no-literal-jsx-style-prop-values": noLiteralJSXStylePropValues,
     "always-spread-props-first": alwaysSpreadJSXPropsFirst,
     "no-exported-types-in-tsx-files": noExportedTypesInTsxFiles,
