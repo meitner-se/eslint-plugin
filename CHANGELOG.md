@@ -1,5 +1,11 @@
 # @meitner/eslint-plugin
 
+## 1.12.0
+
+### Minor Changes
+
+- [#32](https://github.com/meitner-se/eslint-plugin/pull/32) [`3e1bcc7`](https://github.com/meitner-se/eslint-plugin/commit/3e1bcc787673511e8c57a19fa322bcf7b9260c0b) Thanks [@MattisAbrahamsson](https://github.com/MattisAbrahamsson)! - Add `no-self-package-import` rule: forbids a package from importing its own name (bare or subpath) — sibling modules should use relative paths. Reads each file's owning `package.json` name, so it needs no per-package configuration.
+
 ## 1.11.0
 
 ### Minor Changes
