@@ -16,6 +16,7 @@ Custom ESLint rules used internally at Meitner
 -   [css-module-import-name](#css-module-import-name)
 -   [require-button-type](#require-button-type)
 -   [require-reduce-initial-value](#require-reduce-initial-value)
+-   [no-self-package-import](#no-self-package-import)
 
 ### prefer-ternary-for-jsx-expressions
 
@@ -332,4 +333,28 @@ Examples of invalid code
 arr.reduce((acc, cur) => acc + cur);
 
 arr.reduceRight(reducer);
+```
+
+### no-self-package-import
+
+A file inside a package should import its sibling modules with relative paths, not through the package's own name. Importing `@meitner/feature-x/components/foo` from within `@meitner/feature-x` is a self-reference: it round-trips through the package's export map (and, for the bare package name, its barrel) instead of pointing straight at the module.
+
+This rule reads the nearest `package.json` `name` for each file and reports any `import`/`export ... from` whose specifier is that same package — either the bare name or a subpath. Imports of _other_ packages, relative paths, and external modules are unaffected.
+
+Examples of valid code
+
+```ts
+// inside @meitner/feature-x
+import { foo } from "./foo";
+import { bar } from "../bar";
+import { baz } from "@meitner/feature-y/baz";
+```
+
+Examples of invalid code
+
+```ts
+// inside @meitner/feature-x
+import { foo } from "@meitner/feature-x/foo";
+import { helpers } from "@meitner/feature-x";
+export { bar } from "@meitner/feature-x/bar";
 ```
