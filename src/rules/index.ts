@@ -1,6 +1,8 @@
 import { alwaysSpreadJSXPropsFirst } from "./alwaysSpreadJSXPropsFirst";
 import { cssModuleImportName } from "./cssModuleImportName";
 import { noExportedTypesInTsxFiles } from "./noExportedTypesInTsxFiles";
+import { noHookResultAsArgument } from "./noHookResultAsArgument";
+import { noHookResultMemberAccess } from "./noHookResultMemberAccess";
 import { noInlineFunctionParameterTypeAnnotation } from "./noInlineFunctionParameterTypeAnnotation";
 import { noLiteralJSXStylePropValues } from "./noLiteralJSXStylePropValues";
 import { noMixedExports } from "./noMixedExports";
@@ -25,6 +27,8 @@ const rules = {
     "prefer-ternary-for-jsx-expressions": preferTernaryForJSXExpressions,
     "require-button-type": requireButtonType,
     "require-reduce-initial-value": requireReduceInitialValue,
+    "no-hook-result-member-access": noHookResultMemberAccess,
+    "no-hook-result-as-argument": noHookResultAsArgument,
 };
 
 export { rules };

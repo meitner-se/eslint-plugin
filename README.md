@@ -17,6 +17,8 @@ Custom ESLint rules used internally at Meitner
 -   [require-button-type](#require-button-type)
 -   [require-reduce-initial-value](#require-reduce-initial-value)
 -   [no-self-package-import](#no-self-package-import)
+-   [no-hook-result-member-access](#no-hook-result-member-access)
+-   [no-hook-result-as-argument](#no-hook-result-as-argument)
 
 ### prefer-ternary-for-jsx-expressions
 
@@ -357,4 +359,50 @@ Examples of invalid code
 import { foo } from "@meitner/feature-x/foo";
 import { helpers } from "@meitner/feature-x";
 export { bar } from "@meitner/feature-x/bar";
+```
+
+### no-hook-result-member-access
+
+Reading a member off a hook call directly (`useHook().property`) hides the hook call inside a larger expression and throws away the rest of its result. When it happens more than once it also calls the hook repeatedly for a single value each time.
+
+This rule requires the result of a hook (a function whose name matches `use[A-Z]`) to be assigned to a variable or destructured before its members are accessed.
+
+Examples of valid code
+
+```ts
+const { property } = useHook();
+
+const result = useHook();
+const property = result.property;
+```
+
+Examples of invalid code
+
+```ts
+const property = useHook().property;
+
+const instance = new SomeClass(useHook().property);
+
+useHook().doSomething();
+```
+
+### no-hook-result-as-argument
+
+Passing a hook call straight into another call or constructor (`doSomething(useHook())`) buries the hook inside an argument list, where it is easy to miss that a hook is being called at all.
+
+This rule requires the result of a hook (a function whose name matches `use[A-Z]`) to be assigned to a variable before it is passed as an argument. Member access on a hook result is handled by [no-hook-result-member-access](#no-hook-result-member-access) instead.
+
+Examples of valid code
+
+```ts
+const value = useHook();
+doSomething(value);
+```
+
+Examples of invalid code
+
+```ts
+doSomething(useHook());
+
+const instance = new SomeClass(useHook());
 ```
