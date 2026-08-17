@@ -261,7 +261,7 @@ export default function MyComponent(props: Props) { // error
 
 CSS module imports should use a consistent name across the codebase. By default, this rule enforces the name `classes`, but it can be configured to any name.
 
-This rule is auto-fixable.
+This rule is auto-fixable. The fix renames the import binding together with every usage of it, and is withheld when the rename cannot be carried out safely — when the file imports more than one stylesheet, when the expected name is already declared or referenced elsewhere in the file, or when a usage doubles as a shorthand property key or an export name. Those cases are reported without a fix.
 
 Configuration
 
